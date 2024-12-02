@@ -1,0 +1,29 @@
+# code: language=ansible
+# this role installs Visual Studio Code (VS Code) on different Linux systems (Debian, RHEL, RasPi).
+# It also installs a list of extensions for VS Code.
+# The role is based on the official installation instructions for VS Code on Linux.
+
+- name: vscode_codium | main | User decision VS Code or VSCodium
+  ansible.builtin.set_fact:
+    # programmierumgebung: 'vs-codium'
+    programmierumgebung: vscode
+
+- name: vscode_codium | main | include prepare_extensions
+  ansible.builtin.include_tasks: prepare_extensions.yml
+
+- name: vscode_codium | main | include prepare_userlist
+  ansible.builtin.include_tasks: prepare_userlist.yml
+
+- name: vscode_codium | main | Detect operating system
+  ansible.builtin.set_fact:
+    is_raspi: "{{ ansible_architecture in ['armv7l', 'aarch64'] }}"
+    is_debian: "{{ ansible_os_family == 'Debian' and  ansible_architecture not in ['armv7l', 'aarch64'] }}"
+    is_redhat: "{{ ansible_os_family == 'RedHat' }}"
+
+- name: vscode_codium | main | MS-VSCode Installation
+  ansible.builtin.include_tasks: vscode.yml
+  when: programmierumgebung == 'vscode'
+
+- name: vscode_codium | main | VSCodium Installation
+  ansible.builtin.include_tasks: vscodium.yml
+  when: programmierumgebung == 'vs-codium'

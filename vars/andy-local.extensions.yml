@@ -1,0 +1,41 @@
+# code: language=ansible
+# Extensionlist for user: andy-local
+vscode_extensions_for:
+  - username: andy-local
+    extensions:
+      # vs-code themes
+      - nyxb.materialiconic
+
+      # allgemeine Programmierung
+      - formulahendry.code-runner
+      - zerefdev.todo-highlighter
+      - streetsidesoftware.code-spell-checker
+      - djsaunders1997.conda-wingman
+      - njpwerner.autodocstring
+      - esbenp.prettier-vscode
+      - jeff-hykin.polacode-2019
+      - sourcery.sourcery
+      - charliermarsh.ruff
+
+      # markdown
+      - bierner.markdown-mermaid
+      - shd101wyy.markdown-preview-enhanced
+
+      # git / github
+      - github.copilot
+      - github.copilot-chat
+      - donjayamanne.githistory
+      - donjayamanne.git-extension-pack
+      - codezombiech.gitignore
+      - eamodio.gitlens
+
+      # ansible / yaml
+      - redhat.ansible
+      - redhat.vscode-yaml
+      - wholroyd.jinja
+      - kiliantyler.kubernetes-yaml-formatter-x
+
+      # python
+      - ms-python.python
+      - ms-python.vscode-pylance
+      - ms-python.black-formatter

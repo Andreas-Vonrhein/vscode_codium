@@ -1,0 +1,14 @@
+# code: language=ansible
+# install_vscode/vars/main.yml
+vscode_repo:
+  name: VSCode
+  enabled: true
+  state: present
+  package: code
+  deb_repo: "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+  yum_repo: "https://packages.microsoft.com/yumrepos/vscode"
+  gpg_key: https://packages.microsoft.com/keys/microsoft.asc
+vscode_users:
+  - andy-local
+# alle *.extensions.yml aus dem var Verzeichnis sammeln
+extension_files: "{{ lookup('fileglob', role_path + '/vars/*.extensions.yml').split(',') }}"

@@ -1,0 +1,9 @@
+---
+# code: language=ansible
+# Install VSCode on Raspberry Pi
+
+- name: vscode_codium | RasPi | Install VS Code for Raspberry Pi
+  ansible.builtin.apt:
+    name: "{{ vscode_repo.package }}"
+    state: present
+    update_cache: true

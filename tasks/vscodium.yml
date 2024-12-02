@@ -1,0 +1,27 @@
+# code: language=ansible
+- name: Add Repo Key for VS-Codium
+  ansible.builtin.apt_key:
+    url: https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg
+    state: present
+
+- name: Add VS-Codium Repository (FOSS of VS-Code)
+  ansible.builtin.apt_repository:
+    repo: deb https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/debs vscodium main
+    state: present
+
+- name: VS-Codium installieren
+  ansible.builtin.apt:
+    name:
+      - codium
+    state: present
+    update_cache: true
+
+- name: Install VSCodium extensions
+  ansible.builtin.shell:
+    cmd: "codium --install-extension {{ item }}"
+  loop: "{{ vscode_erweiterungen }}"
+  register: shelloutput
+  changed_when: shelloutput.rc != 0
+  args:
+    creates: "/usr/share/codium/resources/app/extensions"
+

@@ -1,0 +1,5 @@
+# code: language=ansible
+# Userlist from Hosts
+userlist:
+  - host_name: victus
+    users: ['andy-local', 'ansible-loc', 'anaconda3']

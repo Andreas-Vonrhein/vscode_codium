@@ -1,0 +1,10 @@
+# code: language=ansible
+# Extensionlist for user: dummy
+vscode_extensions_for:
+  - username: andy-loc
+    extensions:
+      - ms-python.python
+      - formulahendry.code-runner
+      - zerefdev.todo-highlighter
+      - nyxb.materialiconic
+      - jeff-hykin.polacode-2019

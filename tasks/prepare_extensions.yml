@@ -1,0 +1,26 @@
+---
+# code: language=ansible
+
+# Am ende haben wir eine Liste, diese enthält ein Dictionary für jeden User, welches den Usernamen und die Liste der Extensions enthält
+#
+# der Zugriff für ein installation User und extension erfolgt über:
+# - name: debug - show user:install_extension
+#   debug:
+#     msg: "user: {{ item.0.username }} install extension: {{ item.1 }}"
+#   loop: "{{ extensions_var | subelements('extensions') }}"
+
+
+- name: vscode_codium | prepare_extensions | Import variables from each file
+  ansible.builtin.include_vars:
+    file: "{{ item }}"
+    name: temp_var
+  with_fileglob:
+    - "{{ role_path }}/vars/*.extensions.yml"
+  register: imported_vars
+
+
+- name: vscode_codium | prepare_extensions | Combine imported variables
+  ansible.builtin.set_fact:
+    extensions_var: "{{ extensions_var | default([]) + [{'username': item.ansible_facts.temp_var.vscode_extensions_for[0].username, 'extensions': item.ansible_facts.temp_var.vscode_extensions_for[0].extensions}] }}"
+  loop: "{{ imported_vars.results }}"
+  run_once: true

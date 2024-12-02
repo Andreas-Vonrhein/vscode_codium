@@ -1,0 +1,52 @@
+---
+# code: language=ansible
+#
+# generates a var userlist with all users from each hosts.
+# example:
+# userlist:
+#   - host_name: host1
+#     users: ['user1_host1', 'user2_host1', 'user3_host1']
+#   - host_name: host2
+#     users: ['user1_host2', 'user2_host2']
+#
+# gather user from all hosts and saves in userlist
+# there will will be a file in /var/userlist.yml with the userlist
+# it is a workaround because i dont know how to save the users in the way i need it
+
+- name: vscode_codium | prepare_userlist | Find all subdirectories in /home/
+  ansible.builtin.find:
+    paths: /home/
+    file_type: directory
+    recurse: false
+  register: home_subdirs
+
+- name: vscode_codium | prepare_userlist | Initialize var host_users if not defined
+  ansible.builtin.set_fact:
+    host_users: "{{ host_users | default({}) }}"
+
+- name: vscode_codium | prepare_userlist | Save host and user in var host_users
+  ansible.builtin.set_fact:
+    host_users: "{{ host_users | combine( {inventory_hostname: home_subdirs.files | map(attribute='path') | map('basename') | list} , list_merge='append') }}"
+  delegate_to: localhost
+
+- name: vscode_codium | prepare_userlist | generate file /var/userlist.yml
+  ansible.builtin.copy:
+    content: "# code: language=ansible\n# Userlist from Hosts\nuserlist:"
+    dest: "{{ role_path }}/vars/userlist.yml"
+    mode: '0644'
+  run_once: true
+  delegate_to: localhost
+
+# workaround to make a var with a list of dicts for users at each host
+- name: vscode_codium | prepare_userlist | append host_users to file
+  ansible.builtin.lineinfile:
+    path: "{{ role_path }}/vars/userlist.yml"
+    line: "  - host_name: {{ item.key }}\n    users: {{ item.value }}"
+    insertafter: EOF
+  loop: "{{ host_users | dict2items }}"
+  delegate_to: localhost
+
+- name: vscode_codium | prepare_userlist | load var /var/userlist.yml to userlist var
+  ansible.builtin.include_vars:
+    file: "{{ role_path }}/vars/userlist.yml"
+  delegate_to: localhost

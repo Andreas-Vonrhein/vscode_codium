@@ -1,0 +1,17 @@
+# code: language=ansible
+# Install VS Code an Debian based systems
+- name: vscode_codium | deb | Add Microsoft GPG key
+  ansible.builtin.apt_key:
+    url: "{{ vscode_repo.gpg_key }}"
+    state: present
+
+- name: vscode_codium | deb | Add VS Code repository
+  ansible.builtin.apt_repository:
+    repo: "{{ vscode_repo.deb_repo }}"
+    state: present
+
+- name: vscode_codium | deb | Install VS Code
+  ansible.builtin.apt:
+    name: "{{ vscode_repo.package }}"
+    state: present
+    update_cache: true

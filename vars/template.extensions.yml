@@ -1,0 +1,16 @@
+# code: language=ansible
+# TEMPLATE FILE
+# Extensionlist for user: user
+vscode_extensions_for:
+  - username: user
+    extensions:
+      # Python
+      - ms-python.python
+
+      # git / github
+      - github.copilot
+      - github.copilot-chat
+      - donjayamanne.githistory
+      - donjayamanne.git-extension-pack
+      - codezombiech.gitignore
+      - eamodio.gitlens

@@ -1,0 +1,21 @@
+---
+# code: language=ansible
+# Install Visual Studio Code for RHEL based systems
+- name: vscode_codium | yum | Add Microsoft GPG key for Yum
+  ansible.builtin.rpm_key:
+    state: present
+    key: "{{ vscode_repo.gpg_key }}"
+
+- name: vscode_codium | yum | Add VS Code repository for Yum
+  ansible.builtin.yum_repository:
+    name: "{{ vscode_repo.name }}"
+    description: "Visual Studio Code"
+    baseurl: "{{ vscode_repo.yum_repo }}"
+    gpgcheck: true
+    gpgkey: "{{ vscode_repo.gpg_key }}"
+    enabled: true
+
+- name: vscode_codium | yum | Install VS Code for Yum
+  yum:
+    name: "{{ vscode_repo.package }}"
+    state: present

@@ -1,0 +1,25 @@
+# code: language=ansible
+
+- name: vscode_codium | VS-Code | Include Debian specific tasks
+  ansible.builtin.include_tasks: install_vscode_deb.yml
+  when: is_debian and not is_raspi
+
+- name: vscode_codium | VS-Code | Include Yum specific tasks
+  ansible.builtin.include_tasks: install_vscode_yum.yml
+  when: is_redhat
+
+- name: vscode_codium | VS-Code |Include Raspberry Pi specific tasks
+  ansible.builtin.include_tasks: install_vscode_raspi.yml
+  when: is_raspi
+
+- name: vscode_codium | VS-Code | Include tasks to install VS Code extensions
+  ansible.builtin.include_tasks: install_vscode_extensions.yml
+
+- name: vscode_codium | VS-Code | Install VS Code extensions for each user
+  become: true
+  become_user: "{{ item.0.username }}"
+  ansible.builtin.shell: "code --install-extension {{ item.1 }}"
+  register: shelloutput
+  changed_when: shelloutput.rc != 0
+  loop: "{{ extensions_var | subelements('extensions') }}"
+  when: item.0.username in (userlist | selectattr('host_name', 'equalto', inventory_hostname) | map(attribute='users') | first)
