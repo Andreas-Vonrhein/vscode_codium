@@ -5,7 +5,7 @@ vscode_repo:
   enabled: true
   state: present
   package: code
-  deb_repo: "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+  deb_repo: "deb [arch=amd64] https://packages.microsoft.com/repos/code stable main"
   yum_repo: "https://packages.microsoft.com/yumrepos/vscode"
   gpg_key: https://packages.microsoft.com/keys/microsoft.asc
 vscode_users:

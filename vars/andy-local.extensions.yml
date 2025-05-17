@@ -5,22 +5,20 @@ vscode_extensions_for:
     extensions:
       # vs-code themes
       - nyxb.materialiconic
-
       # allgemeine Programmierung
       - formulahendry.code-runner
       - zerefdev.todo-highlighter
       - streetsidesoftware.code-spell-checker
-      - djsaunders1997.conda-wingman
-      - njpwerner.autodocstring
+      # - djsaunders1997.conda-wingman # ich benutze jetzt uv
       - esbenp.prettier-vscode
-      - jeff-hykin.polacode-2019
       - sourcery.sourcery
       - charliermarsh.ruff
-
+      - ms-vscode-remote.remote-ssh #auf einem anderen PC mit SSH programmieren
+      - s-vscode-remote.remote-ssh-edit
+      - ms-vscode.remote-explorer
       # markdown
       - bierner.markdown-mermaid
       - shd101wyy.markdown-preview-enhanced
-
       # git / github
       - github.copilot
       - github.copilot-chat
@@ -28,14 +26,31 @@ vscode_extensions_for:
       - donjayamanne.git-extension-pack
       - codezombiech.gitignore
       - eamodio.gitlens
-
+      - ziyasal.vscode-open-in-github
       # ansible / yaml
       - redhat.ansible
+      # yaml
       - redhat.vscode-yaml
+      # jinja      
       - wholroyd.jinja
-      - kiliantyler.kubernetes-yaml-formatter-x
-
       # python
       - ms-python.python
+      - ms-python.debugpy
+      - demystifying-javascript.python-extensions-pack
+      - ms-python.vscode-python-envs
+      - ushortz.python-extended-snippets
+      - donjayamanne.python-extension-pack
       - ms-python.vscode-pylance
-      - ms-python.black-formatter
+      - njpwerner.autodocstring # docstrings für Python erstellen lassen
+      - aaron-bond.better-comments
+      # - ms-python.black-formatter # ich nutze jetzt ruff
+      # pytest
+      - ryanluker.vscode-coverage-gutters
+      # Kubernetes
+      - kiliantyler.kubernetes-yaml-formatter-x
+      # toml
+      - tamasfe.even-better-toml
+      # Arduino
+      - platformio.platformio-ide
+      # Präsentationen
+      - jeff-hykin.polacode-2019 # Polacode macht Screenshots von markiertem Code

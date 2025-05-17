@@ -10,5 +10,3 @@
   changed_when: shelloutput.rc != 0
   loop: "{{ extensions_var | subelements('extensions') }}"
   when: item.0.username in (userlist | selectattr('host_name', 'equalto', inventory_hostname) | map(attribute='users') | first)
-
-
